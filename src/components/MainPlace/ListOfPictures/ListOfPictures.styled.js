@@ -17,10 +17,6 @@ export const Li = styled.li`
     width: calc(100% / 4 - 10px);
     height: calc(100vh / 3 - 60px);
     overflow: hidden;
-
-        :last-child {
-        margin-bottom: 70px;
-    }
 `
 export const Ul = styled.ul`
     display: flex;
@@ -31,10 +27,9 @@ export const Ul = styled.ul`
     padding: 0;
     gap: 10px;
     margin-top: 70px;
-    margin-bottom: 70px;
 `
 export const Margin = styled.div`
     display: block;
-    width: 100px;
+    width: 200px;
     height: 50px;
 `
