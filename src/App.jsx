@@ -14,8 +14,10 @@ export class App extends Component {
   
   // processing search-btn click
   onSearch = async (data) => {
-    await this.setState({ query: data.query, page: 1, photos: [], total: null, isLoaded: true });
-    this.getPicList();
+    if (data.query !== this.state.query) {
+      await this.setState({ query: data.query, page: 1, photos: [], total: null, isLoaded: true });
+      this.getPicList();
+    }
   }
 
   // processing loadMore-btn click
