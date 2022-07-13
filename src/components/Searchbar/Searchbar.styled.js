@@ -97,7 +97,7 @@ export const Input = styled(Field)`
 export const SearchForm = styled(Form)`
     position: relative;
 `
-export const SearchFormik = styled.div`
+export const FormikWrapper = styled.div`
     position: fixed;
     top: 0;
     left: 0;

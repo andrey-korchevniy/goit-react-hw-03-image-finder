@@ -1,4 +1,4 @@
-import { Button, ButtonWrapper, Input, SearchForm, SearchFormik, Error } from './Searchbar.styled';
+import { Button, ButtonWrapper, Input, SearchForm, FormikWrapper, Error } from './Searchbar.styled';
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import PropTypes from 'prop-types';
@@ -13,15 +13,15 @@ export const Searchbar = ({ onSearch }) => {
             initialValues={{query: ''}}
             validationSchema={schema}
             onSubmit={onSearch}>
-            <SearchFormik>
-            <SearchForm>
-                <Input name='query' type="text" autoComplete="off" autoFocus placeholder="Search images and photos" />
+            <FormikWrapper>
+                <SearchForm>
+                    <Input name='query' type="text" autoComplete="off" autoFocus placeholder="Search images and photos" />
                     <Error name='query' component='div' />
-                <ButtonWrapper>
-                    <Button type="submit">Search</Button>
-                </ButtonWrapper>
+                    <ButtonWrapper>
+                        <Button type="submit">Search</Button>
+                    </ButtonWrapper>
                 </SearchForm>
-            </SearchFormik>
+            </FormikWrapper>
         </Formik>
 )}
 

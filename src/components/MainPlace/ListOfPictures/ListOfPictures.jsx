@@ -26,7 +26,7 @@ export class ListOfPictures extends Component {
 
     render() {
         const { data } = this.props;
-        const { total, objectForRender, isLoaded } = data;
+        const { total, photos, isLoaded } = data;
         const { url, isModalOpen } = this.state;
 
         switch (total) {
@@ -55,12 +55,24 @@ export class ListOfPictures extends Component {
                         </FindBlock>
                     )
                 } break;
+    // processing option is case when error was get from server
+            case -1:                 
+                if (!isLoaded) {
+                    return (
+                        <FindBlock>
+                            <FindText>
+                                Somesing wrong is happening with server
+                            </FindText>
+                            <img src={nothing} alt='somesing wrong'></img>
+                        </FindBlock>
+                    )
+                } break;     
  // processing option if there is a set of pictures
             default:                  
                 return (
                 <>
                     <Ul>
-                        {objectForRender.map(pic =>
+                        {photos.map(pic =>
                             <Li key={pic.id} onClick={this.openModal}>
                                 <Img src={pic.previewURL} alt={pic.tags} id={pic.largeImageURL}></Img>
                             </Li>

@@ -5,7 +5,7 @@ import { getPictures } from 'api/pixabay-api';
 
 export class App extends Component {
   state = {
-    objectForRender: [],    // array for render
+    photos: [],             // array for render
     total: null,            // total amount of pictures in search result
     page: 1,                // number of a current page
     query: '',              // a search word or frase
@@ -14,29 +14,37 @@ export class App extends Component {
   
   // processing search-btn click
   onSearch = async (data) => {
-    await this.setState({isLoaded: true})
-    await this.setState({ query: data.query, page: 1, objectForRender: [], total: null });
+    await this.setState({ query: data.query, page: 1, photos: [], total: null, isLoaded: true });
     this.getPicList();
   }
 
   // processing loadMore-btn click
   onLoadMoreClick = async () => {
-    await this.setState({isLoaded: true})
-    await this.setState(prevState => ({ page: (prevState.page + 1) }));
+    await this.setState(prevState => ({ page: (prevState.page + 1), isLoaded: true }));
     this.getPicList();
   }
   
   // getting data from API
-  getPicList = () => {
-    const { query, page } = this.state;
-    getPictures(query, page, this.handleSearchResult)
+  getPicList = async () => {
+    const { query, page, total } = this.state;
+    try {
+      await getPictures(query, page, this.handleSearchResult)
+    } catch (error) {
+      await this.setState({total: -1})
+      this.handleSearchResult();
+    }
   }
 
   // processing an income result of the search
   handleSearchResult = async (data) => {
-    const newData = this.state.objectForRender.concat(data.data.hits)
-    await this.setState({ objectForRender: newData, total: data.data.totalHits });
-    this.setState({isLoaded: false})
+
+    if (data !== undefined) {
+      const newData = this.state.photos.concat(data.data.hits);
+      await this.setState({ photos: newData, total: data.data.totalHits, isLoaded: false });
+    } else {
+      await this.setState({ photos: [], isLoaded: false });
+    };
+
   }
 
   render() {
